@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="show_week_padding_right">10dp</dimen>
+    <dimen name="week_bar_text_size">14sp</dimen>
+    <dimen name="default_calendar_item_height">63dp</dimen>
+    <dimen name="month_view_over_scroll_height">80dp</dimen>
+    <dimen name="week_line_padding_top">5dp</dimen>
+    <dimen name="card_translate_y">100dp</dimen>
+    <dimen name="homepage_item_margin">20dp</dimen>
+    <dimen name="homepage_item_margin1">8dp</dimen>
+    <dimen name="radius_corner_smooth_mini">5dp</dimen>
+</resources>
