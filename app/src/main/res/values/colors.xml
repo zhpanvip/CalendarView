@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="select_rect_background">#2a32bc</color>
+    <color name="week_line_solid">#AFAFAF</color>
+    <color name="event_circle_color">#7a6e6e</color>
+    <color name="week_line_text_color">#909090</color>
 </resources>

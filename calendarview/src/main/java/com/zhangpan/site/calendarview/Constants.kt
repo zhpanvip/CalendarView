@@ -1,6 +1,8 @@
-package com.zhangpan.site.calendarview;
+package com.zhangpan.site.calendarview
 
 
-public interface Constants {
-    String TAG = "CalendarView";
+interface Constants {
+    companion object {
+        const val TAG: String = "CalendarView"
+    }
 }

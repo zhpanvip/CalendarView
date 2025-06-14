@@ -4,7 +4,7 @@
     <color name="weekend_text_color">#72000000</color>
     <color name="date_picker_title_color">#FFFFFF</color>
     <color name="event_circle_color">#46999999</color>
-    <color name="color_primary_red">#FFFFFF</color>
+    <color name="color_primary_blue">#2a32bc</color>
     <color name="black">#000000</color>
 
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calendar_week_bar_height">36dp</dimen>
+    <dimen name="calendar_item_height">63dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_7">7dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_9">9dp</dimen>
+    <dimen name="dp_10">01dp</dimen>
+    <dimen name="week_line_text_margin_start">9dp</dimen>
+    <dimen name="week_line_text_size">10sp</dimen>
+    <dimen name="week_line_margin_start">24dp</dimen>
+    <dimen name="calendar_line_stroke_width">1dp</dimen>
+    <dimen name="calendar_item_text_margin_top_cn">10dp</dimen>
+    <dimen name="calendar_item_text_margin_top">17dp</dimen>
+    <dimen name="fd_sys_radius_corner_smooth_mini">7dp</dimen>
+</resources>

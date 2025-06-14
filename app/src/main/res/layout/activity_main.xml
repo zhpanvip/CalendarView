@@ -7,13 +7,59 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <com.zhangpan.site.calendarview.CalendarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:calendar_content_view_id="@id/scroll_view"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <com.zhangpan.site.calendarview.CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:calendar_drawer="com.zhangpan.site.demo.calendarview.CustomCalendarDrawer1"
+            app:calendar_padding="10dp"
+            app:current_day_lunar_text_color="@color/select_rect_background"
+            app:current_day_text_color="@color/select_rect_background"
+            app:current_month_lunar_text_color="@color/black"
+            app:current_month_text_color="@color/black"
+            app:day_text_size="19dp"
+            app:lunar_text_size="10dp"
+            app:max_year="2099"
+            app:min_year="1900"
+            app:month_view_expandable="true"
+            app:month_view_show_mode="mode_only_current"
+            app:other_month_lunar_text_color="@color/black"
+            app:other_month_text_color="@color/black"
+            app:selected_lunar_text_color="@color/white"
+            app:selected_text_color="@color/white"
+            app:selected_theme_color="@color/select_rect_background"
+            app:week_background="@color/white"
+            app:week_bar_height="@dimen/calendar_week_bar_height"
+            app:week_item_height="@dimen/calendar_item_height"
+            app:week_start_with="mon"
+            app:week_text_color="@color/black"
+            app:week_text_size="14dp"
+            app:week_view_scrollable="true"
+            app:weekend_text_color="@color/weekend_text_color"
+            app:year_view="com.zhangpan.site.demo.calendarview.CustomYearView"
+            app:year_view_current_day_text_color="@color/select_rect_background"
+            app:year_view_day_text_color="?attr/colorOnSurface"
+            app:year_view_day_text_size="10dp"
+            app:year_view_month_text_color="?attr/colorOnSurface"
+            app:year_view_week_height="14dp"
+            app:year_view_week_text_color="#3E3E3E"
+            app:year_view_week_text_size="10dp" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view"
+            android:background="#4c4f76"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.zhangpan.site.calendarview.CalendarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
