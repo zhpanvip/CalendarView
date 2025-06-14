@@ -20,7 +20,7 @@
         <com.zhangpan.site.calendarview.CalendarView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:calendar_drawer="com.zhangpan.site.demo.calendarview.CustomCalendarDrawer1"
+            app:calendar_drawer="com.zhangpan.site.demo.calendarview.CustomCalendarDrawer"
             app:calendar_padding="10dp"
             app:current_day_lunar_text_color="@color/select_rect_background"
             app:current_day_text_color="@color/select_rect_background"
