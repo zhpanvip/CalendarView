@@ -3,7 +3,6 @@ package com.zhangpan.site.calendarview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
@@ -91,7 +90,7 @@ public final class YearRecyclerView extends RecyclerView {
      */
     void updateStyle(){
         for (int i = 0; i < getChildCount(); i++) {
-            YearView view = (YearView) getChildAt(i);
+            BaseYearView view = (BaseYearView) getChildAt(i);
             view.updateStyle();
             view.invalidate();
         }

@@ -152,7 +152,7 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
     }
 
     /**
-     * 绘制 “班” “休”
+     * 绘制标记，如 “班” “休”
      * @param canvas canvas
      * @param isSelected 是否选中
      * @param calendar 日历calendar
@@ -180,7 +180,7 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
     }
 
     /**
-     * 绘制文本
+     * 绘制日期、农历日期、节日等文本
      * @param canvas canvas
      * @param calendar 日历calendar
      * @param x 日历Card x起点坐标
@@ -248,6 +248,9 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
         startDrawEvent(canvas, calendar, x, y, isSelected)
     }
 
+    /**
+     * 绘制日历事件
+     */
     private fun startDrawEvent(canvas: Canvas, calendar: CalendarDay, x: Int, y: Int, isSelected: Boolean) {
         val calendarEvents = calendar.events
         if (calendarEvents != null && calendarEvents.isNotEmpty()) {

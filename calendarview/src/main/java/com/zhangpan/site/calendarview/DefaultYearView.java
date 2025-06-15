@@ -8,7 +8,7 @@ import android.graphics.Canvas;
  * 默认年视图
  */
 
-public class DefaultYearView extends YearView {
+public class DefaultYearView extends BaseYearView {
 
     private final int mTextPadding;
 

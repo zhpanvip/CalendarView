@@ -1031,14 +1031,14 @@ public class CalendarLayout extends LinearLayout {
             mYearView.setPivotX(0);
             mYearView.setPivotY(0);
             int monthViewWidth = mMonthView.getWidth();
-            final float yearViewScale = ((float) monthViewWidth) / YearView.monthViewWidth;
+            final float yearViewScale = ((float) monthViewWidth) / BaseYearView.monthViewWidth;
             Pair<Float, Float> monthViewCoordinate = getMonthViewCoordinateInYearView(month);
 
             mYearView.animate()
                     .scaleX(yearViewScale)
                     .scaleY(yearViewScale)
                     .translationX(-monthViewCoordinate.first * yearViewScale)
-                    .translationY(-((monthViewCoordinate.second + YearView.monthViewTopLayoutHeight) * yearViewScale))
+                    .translationY(-((monthViewCoordinate.second + BaseYearView.monthViewTopLayoutHeight) * yearViewScale))
                     .setDuration(0)
                     .start();
 
@@ -1058,7 +1058,7 @@ public class CalendarLayout extends LinearLayout {
             ));
             yearViewAlphaAnimator.start();
 
-            final float monthViewScale = YearView.monthViewWidth / ((float) monthViewWidth);
+            final float monthViewScale = BaseYearView.monthViewWidth / ((float) monthViewWidth);
             mMonthWeekViewParent.setPivotX(0);
             mMonthWeekViewParent.setPivotY(0);
             mMonthWeekViewParent.animate()
@@ -1095,12 +1095,12 @@ public class CalendarLayout extends LinearLayout {
 
             int monthViewWidth = mMonthView.getWidth();
             // 设置动画最初的缩放比
-            final float yearViewScale = ((float) monthViewWidth) / YearView.monthViewWidth;
+            final float yearViewScale = ((float) monthViewWidth) / BaseYearView.monthViewWidth;
             Pair<Float, Float> translation = getMonthViewCoordinateInYearView(month);
 
             mYearView.animate()
                     .translationX(-translation.first * yearViewScale)
-                    .translationY(-((translation.second + YearView.monthViewTopLayoutHeight) * yearViewScale))
+                    .translationY(-((translation.second + BaseYearView.monthViewTopLayoutHeight) * yearViewScale))
                     .scaleX(yearViewScale)
                     .scaleY(yearViewScale)
                     .setDuration(SHOW_YEAR_VIEW_ANIMATE_DURATION)
@@ -1123,7 +1123,7 @@ public class CalendarLayout extends LinearLayout {
 
             mMonthWeekViewParent.animate()
                     .translationX(translation.first)
-                    .translationY(translation.second + YearView.monthViewTopLayoutHeight)
+                    .translationY(translation.second + BaseYearView.monthViewTopLayoutHeight)
                     .setDuration(0).start();
 
             mMonthWeekViewParent.animate()

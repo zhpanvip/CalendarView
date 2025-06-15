@@ -31,13 +31,13 @@ final class YearViewAdapter extends BaseRecyclerAdapter<Month> {
 
     @Override
     RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        YearView yearView;
+        BaseYearView yearView;
         if (TextUtils.isEmpty(mDelegate.getYearViewClassPath())) {
             yearView = new DefaultYearView(mContext);
         } else {
             try {
                 Constructor<?> constructor = mDelegate.getYearViewClass().getConstructor(Context.class);
-                yearView = (YearView) constructor.newInstance(mContext);
+                yearView = (BaseYearView) constructor.newInstance(mContext);
             } catch (Exception e) {
                 Log.e(Constants.TAG, "error:" + e.getMessage());
                 yearView = new DefaultYearView(mContext);
@@ -52,17 +52,17 @@ final class YearViewAdapter extends BaseRecyclerAdapter<Month> {
     @Override
     void onBindViewHolder(RecyclerView.ViewHolder holder, Month item, int position) {
         YearViewHolder h = (YearViewHolder) holder;
-        YearView view = h.mYearView;
+        BaseYearView view = h.mYearView;
         view.init(item.getYear(), item.getMonth());
         view.measureSize(mItemWidth, mItemHeight);
     }
 
     private static class YearViewHolder extends RecyclerView.ViewHolder {
-        YearView mYearView;
+        BaseYearView mYearView;
 
         YearViewHolder(View itemView, CalendarViewDelegate delegate) {
             super(itemView);
-            mYearView = (YearView) itemView;
+            mYearView = (BaseYearView) itemView;
             mYearView.setup(delegate);
         }
     }

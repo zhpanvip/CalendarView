@@ -19,7 +19,7 @@ import java.util.List;
  * 年视图
  */
 @SuppressWarnings("unused")
-public abstract class YearView extends View {
+public abstract class BaseYearView extends View {
 
     /**
      * 月视图除去 padding 后的宽度
@@ -160,11 +160,11 @@ public abstract class YearView extends View {
     protected int mLineCount;
 
 
-    public YearView(Context context) {
+    public BaseYearView(Context context) {
         this(context, null);
     }
 
-    public YearView(Context context, @Nullable AttributeSet attrs) {
+    public BaseYearView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initPaint();
     }

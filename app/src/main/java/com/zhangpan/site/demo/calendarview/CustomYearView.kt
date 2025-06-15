@@ -6,11 +6,11 @@ import android.graphics.Rect
 import android.util.Log
 import com.zhangpan.site.calendarview.CalendarDay
 import com.zhangpan.site.calendarview.CalendarUtil
-import com.zhangpan.site.calendarview.YearView
+import com.zhangpan.site.calendarview.BaseYearView
 import java.util.Calendar
 import com.zhangpan.site.calendarview.R
 
-class CustomYearView(context: Context) : YearView(context) {
+class CustomYearView(context: Context) : BaseYearView(context) {
     private var currentYear = 0
     private var currentMonth = 0
     private var rectWidth = CalendarUtil.dipToPx(context, 6f)
