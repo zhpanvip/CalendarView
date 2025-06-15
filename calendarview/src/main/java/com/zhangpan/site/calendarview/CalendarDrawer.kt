@@ -30,7 +30,7 @@ class CalendarDrawer(context: Context) : BaseCalendarDrawer(context) {
         mTodayNumberColor = ContextCompat.getColor(mContext, R.color.color_primary_blue)
         val mEventCirclePaint = Paint()
         mEventCirclePaint.isAntiAlias = true
-        val paint = mDelegate.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
+        val paint = mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
         val metrics = paint.fontMetrics
         mTextBaseLine = mItemHeight / 2f - metrics.descent + (metrics.bottom - metrics.top) / 2
     }
@@ -58,7 +58,7 @@ class CalendarDrawer(context: Context) : BaseCalendarDrawer(context) {
         rectF.right = x + mItemWidth - mPadding
         rectF.bottom = (y + mItemHeight).toFloat()
         if (calendarDay.isCurrentDay) {
-            mSelectedPaint.color = mDelegate.selectedThemeColor
+            mSelectedPaint.color = mDelegate!!.selectedThemeColor
         } else {
             mSelectedPaint.color = ContextCompat.getColor(mContext, R.color.color_primary_blue)
         }
@@ -106,9 +106,9 @@ class CalendarDrawer(context: Context) : BaseCalendarDrawer(context) {
         val isInRange = isInRange(calendar)
 
         if (isSelected) {
-            val paint = mDelegate.switchTextPaint(BaseView.PAINT_CURRENT_SELECT_DATE)
+            val paint = mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_SELECT_DATE)
             canvas.drawText(calendar.day.toString(), cx.toFloat(), mTextBaseLine + top, paint)
-            mDelegate.switchTextPaint(BaseView.PAINT_SELECT_LUNAR_DATE)
+            mDelegate!!.switchTextPaint(BaseView.PAINT_SELECT_LUNAR_DATE)
             canvas.drawText(
                 calendar.lunar,
                 cx.toFloat(),
@@ -117,19 +117,19 @@ class CalendarDrawer(context: Context) : BaseCalendarDrawer(context) {
             )
         } else {
             val paint = if (calendar.isCurrentDay) {
-                mDelegate.switchTextPaint(BaseView.PAINT_CURRENT_DAY)
+                mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_DAY)
             } else if (calendar.isCurrentMonth && isInRange) {
-                mDelegate.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
+                mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
             } else {
-                mDelegate.switchTextPaint(BaseView.PAINT_OTHER_MONTH_DATE)
+                mDelegate!!.switchTextPaint(BaseView.PAINT_OTHER_MONTH_DATE)
             }
             canvas.drawText(calendar.day.toString(), cx.toFloat(), mTextBaseLine + top, paint)
             val lunarPaint = if (calendar.isCurrentDay && isInRange) {
-                mDelegate.switchTextPaint(BaseView.PAINT_CURRENT_DAY_LUNAR_DATE)
+                mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_DAY_LUNAR_DATE)
             } else if (calendar.isCurrentMonth) {
-                mDelegate.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_LUNAR_DATE)
+                mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_LUNAR_DATE)
             } else {
-                mDelegate.switchTextPaint(BaseView.PAINT_OTHER_MONTH_LUNAR_DATE)
+                mDelegate!!.switchTextPaint(BaseView.PAINT_OTHER_MONTH_LUNAR_DATE)
             }
             canvas.drawText(
                 calendar.lunar,

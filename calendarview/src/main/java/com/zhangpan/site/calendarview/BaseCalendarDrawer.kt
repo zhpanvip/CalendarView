@@ -1,55 +1,51 @@
-package com.zhangpan.site.calendarview;
+package com.zhangpan.site.calendarview
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
 
 /**
  * @Description:
  * @Author: zhangpan
  * @Date: 2024/9/6 15:00
  */
-public abstract class BaseCalendarDrawer {
+abstract class BaseCalendarDrawer(context: Context) {
+    protected var mContext: Context = context.applicationContext
 
-    protected Context mContext;
+    protected var mSelectedPaint: Paint = Paint()
+    protected var mTextBaseLine: Float = 0f
 
-    protected Paint mSelectedPaint = new Paint();
-    protected float mTextBaseLine;
+    protected var mDelegate: CalendarViewDelegate? = null
 
-    protected CalendarViewDelegate mDelegate;
+    protected var mItemWidth: Int = 0
+    protected var mItemHeight: Int = 0
+    protected var mLineWidth: Int = 0
 
-    protected int mItemWidth;
-    protected int mItemHeight;
-    protected int mLineWidth;
+    protected var isMonthView: Boolean = false
 
-    protected boolean isMonthView;
-
-    public BaseCalendarDrawer(Context context) {
-        mContext = context.getApplicationContext();
-
-        mSelectedPaint.setStyle(Paint.Style.FILL);
-        mSelectedPaint.setAntiAlias(true);
+    init {
+        mSelectedPaint.style = Paint.Style.FILL
+        mSelectedPaint.isAntiAlias = true
     }
 
 
-    public void setDrawData(
-            CalendarViewDelegate delegate,
-            boolean isMonthView,
-            int itemWidth) {
-        mDelegate = delegate;
-        mItemHeight = delegate.getCalendarItemHeight();
-        mItemWidth = itemWidth;
-        mLineWidth = itemWidth * 7 + mDelegate.getShowWeekPaddingLeft();
-        this.isMonthView = isMonthView;
+    open fun setDrawData(
+        delegate: CalendarViewDelegate,
+        isMonthView: Boolean,
+        itemWidth: Int
+    ) {
+        mDelegate = delegate
+        mItemHeight = delegate.calendarItemHeight
+        mItemWidth = itemWidth
+        mLineWidth = itemWidth * 7 + mDelegate!!.showWeekPaddingLeft
+        this.isMonthView = isMonthView
     }
 
-    public void onPreviewDraw(Canvas canvas, int lineCount) {
-
+    open fun onPreviewDraw(canvas: Canvas?, lineCount: Int) {
     }
 
-    public void updateItemHeight(int itemHeight) {
-        mItemHeight = itemHeight;
+    fun updateItemHeight(itemHeight: Int) {
+        mItemHeight = itemHeight
     }
 
     /**
@@ -61,7 +57,14 @@ public abstract class BaseCalendarDrawer {
      * @param hasScheme 是否是标记的日期
      * @param isSelected 是否选中
      */
-    public abstract void onDrawText(Canvas canvas, CalendarDay calendar, int x, int y, boolean hasScheme, boolean isSelected);
+    abstract fun onDrawText(
+        canvas: Canvas,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int,
+        hasScheme: Boolean,
+        isSelected: Boolean
+    )
 
     /**
      * 绘制选中的日子
@@ -72,8 +75,14 @@ public abstract class BaseCalendarDrawer {
      * @param hasScheme hasScheme 非标记的日期
      * @return true 则绘制onDrawScheme，因为这里背景色不是是互斥的
      */
-    @SuppressWarnings("unused")
-    public abstract boolean onDrawSelected(Canvas canvas, CalendarDay calendarDay, int x, int y, boolean hasScheme);
+    @Suppress("unused")
+    abstract fun onDrawSelected(
+        canvas: Canvas,
+        calendarDay: CalendarDay,
+        x: Int,
+        y: Int,
+        hasScheme: Boolean
+    ): Boolean
 
     /**
      * 绘制标记的事件日子
@@ -83,7 +92,13 @@ public abstract class BaseCalendarDrawer {
      * @param x 日历Card x起点坐标
      * @param y 日历Card y起点坐标
      */
-    public abstract void onDrawScheme(Canvas canvas, boolean isSelected, CalendarDay calendar, int x, int y);
+    abstract fun onDrawScheme(
+        canvas: Canvas,
+        isSelected: Boolean,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int
+    )
 
 
     /**
@@ -92,8 +107,12 @@ public abstract class BaseCalendarDrawer {
      * @param weekStartDay 一周的第一天
      * @param lineNum 周行数 0-6
      */
-    public void onStartDrawWeek(Canvas canvas, CalendarDay weekStartDay, int lineNum, int itemHeight) {
-
+    open fun onStartDrawWeek(
+        canvas: Canvas,
+        weekStartDay: CalendarDay,
+        lineNum: Int,
+        itemHeight: Int
+    ) {
     }
 
     /**
@@ -102,9 +121,9 @@ public abstract class BaseCalendarDrawer {
      * @param dpValue dp
      * @return px
      */
-    protected float dpToPx(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (dpValue * scale);
+    protected fun dpToPx(context: Context, dpValue: Float): Float {
+        val scale = context.resources.displayMetrics.density
+        return (dpValue * scale)
     }
 
     /**
@@ -112,7 +131,7 @@ public abstract class BaseCalendarDrawer {
      * @param calendar calendar
      * @return 是否在日期范围内
      */
-    protected final boolean isInRange(CalendarDay calendar) {
-        return mDelegate != null && CalendarUtil.isCalendarInRange(calendar, mDelegate);
+    protected fun isInRange(calendar: CalendarDay): Boolean {
+        return mDelegate != null && CalendarUtil.isCalendarInRange(calendar, mDelegate)
     }
 }

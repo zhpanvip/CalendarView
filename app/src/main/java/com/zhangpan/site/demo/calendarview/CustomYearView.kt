@@ -8,6 +8,7 @@ import com.zhangpan.site.calendarview.CalendarDay
 import com.zhangpan.site.calendarview.CalendarUtil
 import com.zhangpan.site.calendarview.YearView
 import java.util.Calendar
+import com.zhangpan.site.calendarview.R
 
 class CustomYearView(context: Context) : YearView(context) {
     private var currentYear = 0
@@ -21,36 +22,54 @@ class CustomYearView(context: Context) : YearView(context) {
         val instance = Calendar.getInstance()
         currentYear = instance.get(Calendar.YEAR)
         currentMonth = instance.get(Calendar.MONTH) + 1
-        monthArray = getContext().resources.getStringArray(com.zhangpan.site.calendarview.R.array.lunar_first_of_month)
+        monthArray = getContext().resources.getStringArray(R.array.lunar_first_of_month)
     }
 
     private val mTextPadding = CalendarUtil.dipToPx(context, 3f)
 
-    override fun onDrawMonth(canvas: Canvas, year: Int, month: Int, x: Int, y: Int, width: Int, height: Int) {
+    override fun onDrawMonth(
+        canvas: Canvas,
+        year: Int,
+        month: Int,
+        x: Int,
+        y: Int,
+        width: Int,
+        height: Int
+    ) {
         val text = context
             .resources
-            .getStringArray(com.zhangpan.site.calendarview.R.array.month_string_array)[month - 1]
+            .getStringArray(R.array.month_string_array)[month - 1]
 
         if (currentMonth == month && currentYear == year) {
             mMonthTextPaint.color = mDelegate.yearViewCurDayTextColor
         } else {
             mMonthTextPaint.color = mDelegate.yearViewMonthTextColor
         }
-        canvas.drawText(text,
+        canvas.drawText(
+            text,
             x + mItemWidth / 2f - mTextPadding,
             y + mMonthTextBaseLine,
-            mMonthTextPaint)
+            mMonthTextPaint
+        )
     }
 
     override fun onDrawWeek(canvas: Canvas, week: Int, x: Int, y: Int, width: Int, height: Int) {
-        val text = context.resources.getStringArray(com.zhangpan.site.calendarview.R.array.year_view_week_string_array)[week]
-        canvas.drawText(text,
+        val text = context.resources.getStringArray(R.array.year_view_week_string_array)[week]
+        canvas.drawText(
+            text,
             x + width / 2f,
             y + mWeekTextBaseLine,
-            mWeekTextPaint)
+            mWeekTextPaint
+        )
     }
 
-    override fun onDrawSelected(canvas: Canvas, calendar: CalendarDay, x: Int, y: Int, hasScheme: Boolean): Boolean {
+    override fun onDrawSelected(
+        canvas: Canvas,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int,
+        hasScheme: Boolean
+    ): Boolean {
         Log.d("onDrawSelected", "CalendarDay:${calendar.year} ${calendar.month} ${calendar.day}")
         return false
     }
@@ -58,11 +77,20 @@ class CustomYearView(context: Context) : YearView(context) {
     override fun onDrawScheme(canvas: Canvas, calendar: CalendarDay, x: Int, y: Int) {
     }
 
-    override fun onDrawText(canvas: Canvas, calendar: CalendarDay, x: Int, y: Int, hasScheme: Boolean, isSelected: Boolean) {
+    override fun onDrawText(
+        canvas: Canvas,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int,
+        hasScheme: Boolean,
+        isSelected: Boolean
+    ) {
         val baselineY = mTextBaseLine + y
         val cx = x + mItemWidth / 2
-        canvas.drawText(calendar.day.toString(), cx.toFloat(), baselineY,
-            if (calendar.isCurrentDay) mCurDayTextPaint else mCurMonthTextPaint)
+        canvas.drawText(
+            calendar.day.toString(), cx.toFloat(), baselineY,
+            if (calendar.isCurrentDay) mCurDayTextPaint else mCurMonthTextPaint
+        )
         if (isLunarDay1(calendar.lunar)) {
             val start = x + (mItemWidth - rectWidth) / 2
             val top = y + mItemHeight - rectHeight

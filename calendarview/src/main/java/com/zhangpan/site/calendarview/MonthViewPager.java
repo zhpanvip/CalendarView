@@ -86,7 +86,7 @@ public final class MonthViewPager extends ViewPager {
         if (!mScroller.isFinished() && mScroller.computeScrollOffset()) {
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             // Keep on drawing until the animation has finished.
-            ViewCompat.postInvalidateOnAnimation(this);
+            postInvalidateOnAnimation();
         }
     }
 
