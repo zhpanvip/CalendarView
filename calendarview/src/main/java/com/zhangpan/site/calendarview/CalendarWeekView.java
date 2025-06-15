@@ -22,9 +22,6 @@ public class CalendarWeekView extends WeekView {
         return true;
     }
 
-    private BaseCalendarDrawer getCalendarDrawer() {
-        return getCalendarDrawer(false);
-    }
 
     @Override
     protected void onDrawScheme(Canvas canvas, boolean isSelected, CalendarDay calendar, int x, int y) {

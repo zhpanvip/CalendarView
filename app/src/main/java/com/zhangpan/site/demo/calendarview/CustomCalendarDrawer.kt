@@ -11,13 +11,15 @@ import androidx.core.content.ContextCompat
 import com.zhangpan.site.calendarview.BaseCalendarDrawer
 import com.zhangpan.site.calendarview.BaseView
 import com.zhangpan.site.calendarview.CalendarDay
+import com.zhangpan.site.calendarview.CalendarViewDelegate
 
 /**
  * @Description: 绘制日历月视图与周视图
  * @Author: zhangpan
  * @Date: 2025/6/14 15:39
  */
-class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(context) {
+class CustomCalendarDrawer(private var context: Context, delegate: CalendarViewDelegate) :
+    BaseCalendarDrawer(context, delegate) {
 
     companion object {
         private const val DAY_TYPE_HOLIDAY = "1"
@@ -50,7 +52,8 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
 
     private val mSchemePadding: Float = dpToPx(context, 9f)
     private val rectF = RectF()
-    private val rectRadius = context.resources.getDimension(R.dimen.fd_sys_radius_corner_smooth_mini)
+    private val rectRadius =
+        context.resources.getDimension(R.dimen.fd_sys_radius_corner_smooth_mini)
 //    private val workDayBitmap: Bitmap
 //    private val whiteWorkDayBitmap: Bitmap
 //    private val holidayBitmap: Bitmap
@@ -136,14 +139,26 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
      * @param hasScheme hasScheme 非标记的日期
      * @return true 则绘制onDrawScheme，因为这里背景色不是是互斥的
      */
-    override fun onDrawSelected(canvas: Canvas, calendarDay: CalendarDay, x: Int, y: Int, hasScheme: Boolean): Boolean {
-        val monthViewExpandPercent = mDelegate!!.monthViewExpandPercent
-        val calendarItemHeight = mDelegate!!.calendarItemHeight - dp2
-        val paddingTop = (mDelegate!!.calendarItemHeight - calendarItemHeight + dp1) / 2f
-        val height = (expandSelectHeight - calendarItemHeight) * monthViewExpandPercent + calendarItemHeight
-        rectF.set((x + mPadding), y.toFloat() + paddingTop, (x + mItemWidth - mPadding), (y + height))
+    override fun onDrawSelected(
+        canvas: Canvas,
+        calendarDay: CalendarDay,
+        x: Int,
+        y: Int,
+        hasScheme: Boolean
+    ): Boolean {
+        val monthViewExpandPercent = delegate.monthViewExpandPercent
+        val calendarItemHeight = delegate.calendarItemHeight - dp2
+        val paddingTop = (delegate.calendarItemHeight - calendarItemHeight + dp1) / 2f
+        val height =
+            (expandSelectHeight - calendarItemHeight) * monthViewExpandPercent + calendarItemHeight
+        rectF.set(
+            (x + mPadding),
+            y.toFloat() + paddingTop,
+            (x + mItemWidth - mPadding),
+            (y + height)
+        )
         if (calendarDay.isCurrentDay) {
-            mSelectedPaint.color = mDelegate!!.selectedThemeColor
+            mSelectedPaint.color = delegate.selectedThemeColor
         } else {
             mSelectedPaint.color = selectedDayBackgroundColor
         }
@@ -159,7 +174,13 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
      * @param x 日历Card x起点坐标
      * @param y 日历Card y起点坐标
      */
-    override fun onDrawScheme(canvas: Canvas, isSelected: Boolean, calendar: CalendarDay, x: Int, y: Int) {
+    override fun onDrawScheme(
+        canvas: Canvas,
+        isSelected: Boolean,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int
+    ) {
         if (mIsChineseLanguage) {
 //            if (DAY_TYPE_HOLIDAY == calendar.scheme) {
 //                var bitmap = holidayBitmap
@@ -188,13 +209,20 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
      * @param hasScheme 是否是标记的日期
      * @param isSelected 是否选中
      */
-    override fun onDrawText(canvas: Canvas, calendar: CalendarDay, x: Int, y: Int, hasScheme: Boolean, isSelected: Boolean) {
-        val monthTextPaint = mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
+    override fun onDrawText(
+        canvas: Canvas,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int,
+        hasScheme: Boolean,
+        isSelected: Boolean
+    ) {
+        val monthTextPaint = delegate.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
         val metrics = monthTextPaint.fontMetrics
         val height = metrics.descent - metrics.ascent
         val dateTextBaseLine = (metrics.ascent + metrics.descent) / 2 + height + textMarginTop
         val dateTextBaseLineY = y + dateTextBaseLine
-        val lunarPaint = mDelegate!!.switchTextPaint(BaseView.PAINT_SELECT_LUNAR_DATE)
+        val lunarPaint = delegate.switchTextPaint(BaseView.PAINT_SELECT_LUNAR_DATE)
         val fontMetrics = lunarPaint.fontMetrics
         val lunarTextBaseLine = (fontMetrics.ascent + fontMetrics.descent) / 2
         val lunarTextBaseLineY = y + expandSelectHeight + lunarTextBaseLine - dp4
@@ -204,18 +232,20 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
 
         // 绘制日期
         if (isSelected) {
-            val selectedPaint = mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_SELECT_DATE)
-            canvas.drawText(calendar.day.toString(), cx, dateTextBaseLineY,
-                selectedPaint)
+            val selectedPaint = delegate.switchTextPaint(BaseView.PAINT_CURRENT_SELECT_DATE)
+            canvas.drawText(
+                calendar.day.toString(), cx, dateTextBaseLineY,
+                selectedPaint
+            )
         } else {
             val datePaint: Paint = if (calendar.isCurrentDay) {
-                mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_DAY)
+                delegate.switchTextPaint(BaseView.PAINT_CURRENT_DAY)
             } else if (calendar.isWeekend) {
-                mDelegate!!.switchTextPaint(BaseView.PAINT_WEEKEND_DATE)
+                delegate.switchTextPaint(BaseView.PAINT_WEEKEND_DATE)
             } else if (calendar.isCurrentMonth && isInRange) {
-                mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
+                delegate.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_DATE)
             } else {
-                mDelegate!!.switchTextPaint(BaseView.PAINT_OTHER_MONTH_DATE)
+                delegate.switchTextPaint(BaseView.PAINT_OTHER_MONTH_DATE)
             }
 
             canvas.drawText(calendar.day.toString(), cx, dateTextBaseLineY, datePaint)
@@ -223,23 +253,23 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
 
         // 绘制农历日期、节日
         if (mIsChineseLanguage) {
-            val lunarText = if (mDelegate!!.monthViewExpandPercent > 0.6) {
+            val lunarText = if (delegate.monthViewExpandPercent > 0.6) {
                 calendar.lunar
             } else {
                 calendar.lunarText
             }
             if (isSelected) {
-                val selectLunarPaint = mDelegate!!.switchTextPaint(BaseView.PAINT_SELECT_LUNAR_DATE)
+                val selectLunarPaint = delegate.switchTextPaint(BaseView.PAINT_SELECT_LUNAR_DATE)
                 canvas.drawText(lunarText, cx, lunarTextBaseLineY, selectLunarPaint)
             } else {
                 val paint = if (calendar.isCurrentDay && isInRange) {
-                    mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_DAY_LUNAR_DATE)
+                    delegate.switchTextPaint(BaseView.PAINT_CURRENT_DAY_LUNAR_DATE)
                 } else if (calendar.isWeekend) {
-                    mDelegate!!.switchTextPaint(BaseView.PAINT_WEEKEND_LUNAR_DATE)
+                    delegate.switchTextPaint(BaseView.PAINT_WEEKEND_LUNAR_DATE)
                 } else if (calendar.isCurrentMonth) {
-                    mDelegate!!.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_LUNAR_DATE)
+                    delegate.switchTextPaint(BaseView.PAINT_CURRENT_MONTH_LUNAR_DATE)
                 } else {
-                    mDelegate!!.switchTextPaint(BaseView.PAINT_OTHER_MONTH_LUNAR_DATE)
+                    delegate.switchTextPaint(BaseView.PAINT_OTHER_MONTH_LUNAR_DATE)
                 }
                 canvas.drawText(lunarText, cx, lunarTextBaseLineY, paint)
             }
@@ -251,10 +281,16 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
     /**
      * 绘制日历事件
      */
-    private fun startDrawEvent(canvas: Canvas, calendar: CalendarDay, x: Int, y: Int, isSelected: Boolean) {
+    private fun startDrawEvent(
+        canvas: Canvas,
+        calendar: CalendarDay,
+        x: Int,
+        y: Int,
+        isSelected: Boolean
+    ) {
         val calendarEvents = calendar.events
         if (calendarEvents != null && calendarEvents.isNotEmpty()) {
-            val calendarInitHeight = mDelegate!!.calendarItemHeight
+            val calendarInitHeight = delegate.calendarItemHeight
             val originBottom = y + calendarInitHeight - eventMarkRectBottomPadding
             val originTop = originBottom - eventMarkRectHeight
             val eventMarkColor = if (isSelected) {
@@ -262,7 +298,7 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
             } else {
                 eventMarkRectColor
             }
-            if (mDelegate!!.monthViewExpandPercent <= 0f) {
+            if (delegate.monthViewExpandPercent <= 0f) {
                 val curLeft = x + mItemWidth / 2f - eventMarkRectWidth / 2f
                 val curRight = x + mItemWidth / 2f + eventMarkRectWidth / 2f
                 eventRectPaint.color = eventMarkColor
@@ -278,52 +314,79 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
         }
     }
 
-    private fun drawEventRect(canvas: Canvas, x: Int, y: Int, index: Int, calendarEvent: CalendarDay.CalendarEvent, originTop: Float, startColor: Int) {
-        val monthViewExpandPercent = mDelegate!!.monthViewExpandPercent
+    private fun drawEventRect(
+        canvas: Canvas,
+        x: Int,
+        y: Int,
+        index: Int,
+        calendarEvent: CalendarDay.CalendarEvent,
+        originTop: Float,
+        startColor: Int
+    ) {
+        val monthViewExpandPercent = delegate.monthViewExpandPercent
         val maxWidth = mItemWidth - dp2
         val curWidth = (maxWidth - eventMarkRectWidth) * monthViewExpandPercent + eventMarkRectWidth
         // event rect horizontal margin
         val marginHorizontal = (mItemWidth - curWidth) / 2f
-        val endTop = y + expandSelectHeight + index * (eventViewHeight + eventRectTopMargin) + eventRectTopMargin
+        val endTop =
+            y + expandSelectHeight + index * (eventViewHeight + eventRectTopMargin) + eventRectTopMargin
         val curTop = (endTop - originTop) * monthViewExpandPercent + originTop
-        val curBottom = curTop + (eventViewHeight - eventMarkRectHeight) * monthViewExpandPercent + eventMarkRectHeight
+        val curBottom =
+            curTop + (eventViewHeight - eventMarkRectHeight) * monthViewExpandPercent + eventMarkRectHeight
 
         rectF.set(x + marginHorizontal, curTop, x + mItemWidth - marginHorizontal, curBottom)
-        eventRectPaint.setColor(interpolateColors(monthViewExpandPercent, startColor, calendarEvent.eventColor))
+        eventRectPaint.setColor(
+            interpolateColors(
+                monthViewExpandPercent,
+                startColor,
+                calendarEvent.eventColor
+            )
+        )
         canvas.drawRoundRect(rectF, eventViewRadius, eventViewRadius, eventRectPaint)
         if (monthViewExpandPercent > 0.1) {
             eventTextPaint.textSize = dp9 * monthViewExpandPercent
             val fm = eventTextPaint.getFontMetrics()
             val height = fm.descent - fm.ascent
-            val textWithEllipsis = getTextWithEllipsis(calendarEvent.eventName, eventTextPaint, curWidth)
+            val textWithEllipsis =
+                getTextWithEllipsis(calendarEvent.eventName, eventTextPaint, curWidth)
             val offset = dpToPx(context, 2 * monthViewExpandPercent)
-            canvas.drawText(textWithEllipsis, x + marginHorizontal + offset, curTop + ((curBottom - curTop) + height) / 2 - offset, eventTextPaint)
+            canvas.drawText(
+                textWithEllipsis,
+                x + marginHorizontal + offset,
+                curTop + ((curBottom - curTop) + height) / 2 - offset,
+                eventTextPaint
+            )
         }
     }
 
-    override fun onStartDrawWeek(canvas: Canvas, weekStartDay: CalendarDay, lineNum: Int, itemHeight: Int) {
+    override fun onStartDrawWeek(
+        canvas: Canvas,
+        weekStartDay: CalendarDay,
+        lineNum: Int,
+        itemHeight: Int
+    ) {
         super.onStartDrawWeek(canvas, weekStartDay, lineNum, itemHeight)
         mItemHeight = itemHeight
         val weekNum = weekStartDay.weekNum
-        if (mDelegate!!.isShowWeekNum) {
+        if (delegate.isShowWeekNum) {
             mWeekPaint.color = weekLineSolidColor
             canvas.drawLine(
                 weekLineMarginStart,
-                (lineNum * itemHeight).toFloat() + mDelegate!!.calendarPaddingTop,
+                (lineNum * itemHeight).toFloat() + delegate.calendarPaddingTop,
                 mLineWidth.toFloat(),
-                (lineNum * itemHeight).toFloat() + mDelegate!!.calendarPaddingTop,
+                (lineNum * itemHeight).toFloat() + delegate.calendarPaddingTop,
                 mWeekPaint
             )
 
             mWeekPaint.color = if (weekStartDay.isCurrentWeek) {
-                mDelegate!!.selectedThemeColor
+                delegate.selectedThemeColor
             } else {
                 weekLineTextColor
             }
             canvas.drawText(
                 weekNum.toString(),
                 weekLineTextSizeMarginStart,
-                (lineNum * itemHeight + weekLineTextSize / 2.3f) + mDelegate!!.calendarPaddingTop,
+                (lineNum * itemHeight + weekLineTextSize / 2.3f) + delegate.calendarPaddingTop,
                 mWeekPaint
             )
         }
@@ -336,7 +399,7 @@ class CustomCalendarDrawer(private var context: Context) : BaseCalendarDrawer(co
         return if (lineCount == 0) {
             ((mItemHeight - expandSelectHeight) / eventViewHeight).toInt()
         } else {
-            val maxLineHeight = (mDelegate!!.monthViewExpandHeight / lineCount * 1F)
+            val maxLineHeight = (delegate.monthViewExpandHeight / lineCount * 1F)
             ((maxLineHeight - expandSelectHeight) / (eventViewHeight + eventRectTopMargin)).toInt()
         }
     }

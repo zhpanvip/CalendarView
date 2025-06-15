@@ -17,10 +17,6 @@ public class CalendarMonthView extends MonthView {
         getCalendarDrawer().onPreviewDraw(canvas, mLineCount);
     }
 
-    private BaseCalendarDrawer getCalendarDrawer() {
-        return getCalendarDrawer(true);
-    }
-
     /**
      * 绘制选中的日子
      * @param canvas canvas

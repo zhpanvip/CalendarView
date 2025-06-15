@@ -9,43 +9,31 @@ import android.graphics.Paint
  * @Author: zhangpan
  * @Date: 2024/9/6 15:00
  */
-abstract class BaseCalendarDrawer(context: Context) {
+abstract class BaseCalendarDrawer(context: Context,var delegate: CalendarViewDelegate) {
     protected var mContext: Context = context.applicationContext
 
     protected var mSelectedPaint: Paint = Paint()
     protected var mTextBaseLine: Float = 0f
 
-    protected var mDelegate: CalendarViewDelegate? = null
-
     protected var mItemWidth: Int = 0
     protected var mItemHeight: Int = 0
     protected var mLineWidth: Int = 0
 
-    protected var isMonthView: Boolean = false
-
     init {
         mSelectedPaint.style = Paint.Style.FILL
         mSelectedPaint.isAntiAlias = true
+        mItemHeight = delegate.calendarItemHeight
     }
 
 
-    open fun setDrawData(
-        delegate: CalendarViewDelegate,
-        isMonthView: Boolean,
-        itemWidth: Int
-    ) {
-        mDelegate = delegate
-        mItemHeight = delegate.calendarItemHeight
+    open fun setItemWidth(itemWidth: Int) {
         mItemWidth = itemWidth
-        mLineWidth = itemWidth * 7 + mDelegate!!.showWeekPaddingLeft
-        this.isMonthView = isMonthView
+        mLineWidth = itemWidth * 7 + delegate.showWeekPaddingLeft
     }
 
     open fun onPreviewDraw(canvas: Canvas?, lineCount: Int) {
-    }
-
-    fun updateItemHeight(itemHeight: Int) {
-        mItemHeight = itemHeight
+        // 更新 ItemView 高度
+        mItemHeight = getItemHeight(lineCount)
     }
 
     /**
@@ -132,6 +120,18 @@ abstract class BaseCalendarDrawer(context: Context) {
      * @return 是否在日期范围内
      */
     protected fun isInRange(calendar: CalendarDay): Boolean {
-        return mDelegate != null && CalendarUtil.isCalendarInRange(calendar, mDelegate)
+        return CalendarUtil.isCalendarInRange(calendar, delegate)
+    }
+
+    private fun getItemHeight(lineCount: Int): Int {
+        val calendarItemHeight: Int = delegate.calendarItemHeight
+        val calendarViewInitialHeight: Int = lineCount * calendarItemHeight
+        val calendarViewHeightOffset: Float =
+            delegate.getMonthViewHeightOffset(calendarViewInitialHeight).toFloat()
+        var itemOffset = 0f
+        if (lineCount != 0) {
+            itemOffset = calendarViewHeightOffset / lineCount
+        }
+        return calendarItemHeight + itemOffset.toInt()
     }
 }

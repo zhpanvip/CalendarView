@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -94,6 +95,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 初始化
+     *
      * @param context context
      */
     private void init(Context context) {
@@ -247,15 +249,16 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置日期范围
-     * @param minYear 最小年份
+     *
+     * @param minYear      最小年份
      * @param minYearMonth 最小年份对应月份
-     * @param minYearDay 最小年份对应天
-     * @param maxYear 最大月份
+     * @param minYearDay   最小年份对应天
+     * @param maxYear      最大月份
      * @param maxYearMonth 最大月份对应月份
-     * @param maxYearDay 最大月份对应天
+     * @param maxYearDay   最大月份对应天
      */
     public void setRange(int minYear, int minYearMonth, int minYearDay,
-            int maxYear, int maxYearMonth, int maxYearDay) {
+                         int maxYear, int maxYearMonth, int maxYearDay) {
         if (CalendarUtil.compareTo(minYear, minYearMonth, minYearDay,
                 maxYear, maxYearMonth, maxYearDay) > 0) {
             return;
@@ -396,6 +399,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取当天
+     *
      * @return 返回今天
      */
     public int getCurDay() {
@@ -404,6 +408,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取本月
+     *
      * @return 返回本月
      */
     public int getCurMonth() {
@@ -412,6 +417,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取本年
+     *
      * @return 返回本年
      */
     public int getCurYear() {
@@ -490,6 +496,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 年月份选择视图是否打开
+     *
      * @return true or false
      */
     public boolean isYearSelectLayoutVisible() {
@@ -499,6 +506,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 关闭日历布局，同时会滚动到指定的位置
+     *
      * @param position 某一年
      */
     private void closeSelectLayout(final int position) {
@@ -540,6 +548,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到当前
+     *
      * @param smoothScroll smoothScroll
      */
     public void scrollToCurrent(boolean smoothScroll) {
@@ -575,6 +584,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到下一个月
+     *
      * @param smoothScroll smoothScroll
      */
     public void scrollToNext(boolean smoothScroll) {
@@ -596,6 +606,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到上一个月
+     *
      * @param smoothScroll smoothScroll
      */
     public void scrollToPre(boolean smoothScroll) {
@@ -633,9 +644,10 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到指定日期
-     * @param year year
+     *
+     * @param year  year
      * @param month month
-     * @param day day
+     * @param day   day
      */
     public void scrollToCalendar(int year, int month, int day) {
         scrollToCalendar(year, month, day, false, true);
@@ -652,9 +664,10 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到指定日期
-     * @param year year
-     * @param month month
-     * @param day day
+     *
+     * @param year         year
+     * @param month        month
+     * @param day          day
      * @param smoothScroll smoothScroll
      */
     public void scrollToCalendar(int year, int month, int day, boolean smoothScroll) {
@@ -663,10 +676,11 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到指定日期
-     * @param year year
-     * @param month month
-     * @param day day
-     * @param smoothScroll smoothScroll
+     *
+     * @param year           year
+     * @param month          month
+     * @param day            day
+     * @param smoothScroll   smoothScroll
      * @param invokeListener 调用日期事件
      */
     public void scrollToCalendar(int year, int month, int day, boolean smoothScroll, boolean invokeListener) {
@@ -696,6 +710,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到某一年
+     *
      * @param year 快速滚动的年份
      */
     public void scrollToYear(int year) {
@@ -704,7 +719,8 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 滚动到某一年
-     * @param year 快速滚动的年份
+     *
+     * @param year         快速滚动的年份
      * @param smoothScroll smoothScroll
      */
     public void scrollToYear(int year, boolean smoothScroll) {
@@ -716,6 +732,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置月视图是否可滚动
+     *
      * @param monthViewScrollable 设置月视图是否可滚动
      */
     public final void setMonthViewScrollable(boolean monthViewScrollable) {
@@ -725,6 +742,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置周视图是否可滚动
+     *
      * @param weekViewScrollable 设置周视图是否可滚动
      */
     public final void setWeekViewScrollable(boolean weekViewScrollable) {
@@ -733,6 +751,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置年视图是否可滚动
+     *
      * @param yearViewScrollable 设置年视图是否可滚动
      */
     public final void setYearViewScrollable(boolean yearViewScrollable) {
@@ -781,6 +800,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 添加选择
+     *
      * @param calendars calendars
      */
     public final void putMultiSelect(CalendarDay... calendars) {
@@ -798,6 +818,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 清楚一些多选日期
+     *
      * @param calendars calendars
      */
     @SuppressWarnings("RedundantCollectionOperation")
@@ -829,6 +850,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取选中范围
+     *
      * @return return
      */
     public final List<CalendarDay> getSelectCalendarRange() {
@@ -847,6 +869,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置月视图
+     *
      * @param cls MonthView.class
      */
     public final void setMonthView(Class<?> cls) {
@@ -862,6 +885,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置周视图
+     *
      * @param cls WeekView.class
      */
     public final void setWeekView(Class<?> cls) {
@@ -879,11 +903,18 @@ public class CalendarView extends FrameLayout {
         if (cls == null) {
             return;
         }
-        if (mDelegate.getCalendarDrawerClass().equals(cls)) {
+        if (cls.equals(mDelegate.getCalendarDrawer().getClass())) {
             return;
         }
-        mDelegate.setCalendarDrawerClass(cls);
-        mWeekPager.updateWeekViewClass();
+        try {
+            Constructor<? extends BaseCalendarDrawer> constructor = cls.getConstructor(Context.class, CalendarViewDelegate.class);
+            mDelegate.setCalendarDrawerClass(constructor.newInstance(getContext(), mDelegate));
+            mWeekPager.updateWeekViewClass();
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |
+                 InstantiationException e) {
+            Log.e(TAG, "error:" + e.getMessage());
+        }
+
     }
 
     public void setShowWeekNumber(boolean showWeekNumber) {
@@ -899,6 +930,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置周栏视图
+     *
      * @param cls WeekBar.class
      */
     public final void setWeekBar(Class<?> cls) {
@@ -931,6 +963,7 @@ public class CalendarView extends FrameLayout {
      * 使用此方法，只能基于select_mode = single_mode
      * 否则的话，如果标记全部日期为不可点击，那是没有意义的，
      * 框架本身也不可能在滑动的过程中全部去判断每个日期的可点击性
+     *
      * @param listener listener
      */
     public final void setOnCalendarInterceptListener(OnCalendarInterceptListener listener) {
@@ -949,6 +982,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 点击视图Padding位置的事件
+     *
      * @param listener listener
      */
     public final void setOnClickCalendarPaddingListener(OnClickCalendarPaddingListener listener) {
@@ -963,6 +997,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 年份改变事件
+     *
      * @param listener listener
      */
     public void setOnYearChangeListener(OnYearChangeListener listener) {
@@ -971,6 +1006,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 月份改变事件
+     *
      * @param listener listener
      */
     public void registerMonthChangeListener(OnMonthChangeListener listener) {
@@ -983,6 +1019,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 周视图切换监听
+     *
      * @param listener listener
      */
     public void setOnWeekChangeListener(OnWeekChangeListener listener) {
@@ -991,6 +1028,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 日期选择事件
+     *
      * @param listener listener
      */
     public void setOnCalendarSelectListener(OnCalendarSelectListener listener) {
@@ -1010,6 +1048,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 日期选择事件
+     *
      * @param listener listener
      */
     public final void setOnCalendarRangeSelectListener(OnCalendarRangeSelectListener listener) {
@@ -1018,6 +1057,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 日期多选事件
+     *
      * @param listener listener
      */
     public final void setOnCalendarMultiSelectListener(OnCalendarMultiSelectListener listener) {
@@ -1026,6 +1066,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置最小范围和最大访问，default：minRange = -1，maxRange = -1 没有限制
+     *
      * @param minRange minRange
      * @param maxRange maxRange
      */
@@ -1098,15 +1139,16 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 直接指定选择范围，set select calendar range
-     * @param startYear startYear
+     *
+     * @param startYear  startYear
      * @param startMonth startMonth
-     * @param startDay startDay
-     * @param endYear endYear
-     * @param endMonth endMonth
-     * @param endDay endDay
+     * @param startDay   startDay
+     * @param endYear    endYear
+     * @param endMonth   endMonth
+     * @param endDay     endDay
      */
     public final void setSelectCalendarRange(int startYear, int startMonth, int startDay,
-            int endYear, int endMonth, int endDay) {
+                                             int endYear, int endMonth, int endDay) {
         if (mDelegate.getSelectMode() != CalendarViewDelegate.SELECT_MODE_RANGE) {
             return;
         }
@@ -1124,8 +1166,9 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置选择日期范围
+     *
      * @param startCalendar startCalendar
-     * @param endCalendar endCalendar
+     * @param endCalendar   endCalendar
      */
     public final void setSelectCalendarRange(CalendarDay startCalendar, CalendarDay endCalendar) {
         if (mDelegate.getSelectMode() != CalendarViewDelegate.SELECT_MODE_RANGE) {
@@ -1188,6 +1231,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 是否拦截日期，此设置续设置mCalendarInterceptListener
+     *
      * @param calendar calendar
      * @return 是否拦截日期
      */
@@ -1199,6 +1243,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获得最大多选数量
+     *
      * @return 获得最大多选数量
      */
     public final int getMaxMultiSelectSize() {
@@ -1207,6 +1252,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置最大多选数量
+     *
      * @param maxMultiSelectSize 最大多选数量
      */
     public final void setMaxMultiSelectSize(int maxMultiSelectSize) {
@@ -1215,6 +1261,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 最小选择范围
+     *
      * @return 最小选择范围
      */
     public final int getMinSelectRange() {
@@ -1223,6 +1270,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 最大选择范围
+     *
      * @return 最大选择范围
      */
     public final int getMaxSelectRange() {
@@ -1231,6 +1279,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 日期长按事件
+     *
      * @param listener listener
      */
     public void setOnCalendarLongClickListener(OnCalendarLongClickListener listener) {
@@ -1239,8 +1288,9 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 日期长按事件
+     *
      * @param preventLongPressedSelect 防止长按选择日期
-     * @param listener listener
+     * @param listener                 listener
      */
     public void setOnCalendarLongClickListener(OnCalendarLongClickListener listener, boolean preventLongPressedSelect) {
         this.mDelegate.mCalendarLongClickListener = listener;
@@ -1249,6 +1299,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 视图改变事件
+     *
      * @param listener listener
      */
     public void setOnViewChangeListener(OnViewChangeListener listener) {
@@ -1262,6 +1313,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 保持状态
+     *
      * @return 状态
      */
     @Nullable
@@ -1280,6 +1332,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 恢复状态
+     *
      * @param state 状态
      */
     @Override
@@ -1324,6 +1377,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置月视图模式是否支持全屏展开
+     *
      * @param expandable 是否支持全屏展开
      */
     public void setMonthViewExpandable(boolean expandable) {
@@ -1332,6 +1386,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 标记哪些日期有事件
+     *
      * @param mSchemeDates mSchemeDatesMap 通过自己的需求转换即可
      */
     public final void setSchemeDate(Map<String, CalendarDay> mSchemeDates) {
@@ -1355,6 +1410,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 添加事物标记
+     *
      * @param calendar calendar
      */
     public final void addSchemeDate(CalendarDay calendar) {
@@ -1374,6 +1430,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 添加事物标记
+     *
      * @param mSchemeDates mSchemeDates
      */
     public final void addSchemeDate(Map<String, CalendarDay> mSchemeDates) {
@@ -1393,6 +1450,7 @@ public class CalendarView extends FrameLayout {
     /**
      * 移除某天的标记
      * 这个API是安全的
+     *
      * @param calendar calendar
      */
     public final void removeSchemeDate(CalendarDay calendar) {
@@ -1414,9 +1472,10 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置背景色
+     *
      * @param yearViewBackground 年份卡片的背景色
-     * @param weekBackground 星期栏背景色
-     * @param lineBg 线的颜色
+     * @param weekBackground     星期栏背景色
+     * @param lineBg             线的颜色
      */
     public void setBackground(int yearViewBackground, int weekBackground, int lineBg) {
         mWeekBar.setBackgroundColor(weekBackground);
@@ -1427,10 +1486,11 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置文本颜色
-     * @param currentDayTextColor 今天字体颜色
-     * @param curMonthTextColor 当前月份字体颜色
-     * @param otherMonthColor 其它月份字体颜色
-     * @param curMonthLunarTextColor 当前月份农历字体颜色
+     *
+     * @param currentDayTextColor      今天字体颜色
+     * @param curMonthTextColor        当前月份字体颜色
+     * @param otherMonthColor          其它月份字体颜色
+     * @param curMonthLunarTextColor   当前月份农历字体颜色
      * @param otherMonthLunarTextColor 其它农历字体颜色
      */
     public void setTextColor(
@@ -1450,8 +1510,9 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置选择的效果
-     * @param selectedThemeColor 选中的标记颜色
-     * @param selectedTextColor 选中的字体颜色
+     *
+     * @param selectedThemeColor     选中的标记颜色
+     * @param selectedTextColor      选中的字体颜色
      * @param selectedLunarTextColor 选中的农历字体颜色
      */
     public void setSelectedColor(int selectedThemeColor, int selectedTextColor, int selectedLunarTextColor) {
@@ -1465,8 +1526,9 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 定制颜色
+     *
      * @param selectedThemeColor 选中的标记颜色
-     * @param schemeColor 标记背景色
+     * @param schemeColor        标记背景色
      */
     public void setThemeColor(int selectedThemeColor, int schemeColor) {
         if (mDelegate == null || mMonthPager == null || mWeekPager == null) {
@@ -1479,9 +1541,10 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置标记的色
+     *
      * @param schemeLunarTextColor 标记农历颜色
-     * @param schemeColor 标记背景色
-     * @param schemeTextColor 标记字体颜色
+     * @param schemeColor          标记背景色
+     * @param schemeTextColor      标记字体颜色
      */
     public void setSchemeColor(int schemeColor, int schemeTextColor, int schemeLunarTextColor) {
         if (mDelegate == null || mMonthPager == null || mWeekPager == null) {
@@ -1494,8 +1557,9 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置年视图的颜色
+     *
      * @param yearViewMonthTextColor 年视图月份颜色
-     * @param yearViewDayTextColor 年视图天的颜色
+     * @param yearViewDayTextColor   年视图天的颜色
      * @param yarViewSchemeTextColor 年视图标记颜色
      */
     public void setYearViewTextColor(int yearViewMonthTextColor, int yearViewDayTextColor, int yarViewSchemeTextColor) {
@@ -1508,8 +1572,9 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 设置星期栏的背景和字体颜色
+     *
      * @param weekBackground 背景色
-     * @param weekTextColor 字体颜色
+     * @param weekTextColor  字体颜色
      */
     public void setWeeColor(int weekBackground, int weekTextColor) {
         if (mWeekBar == null) {
@@ -1572,6 +1637,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取月视图展开前的初始高度
+     *
      * @return 月视图展开前的初始高度
      */
     public int getMonthViewOriginHeight() {
@@ -1580,6 +1646,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取 CalendarView 在月视图展开前的初始高度
+     *
      * @return CalendarView 在月视图展开前的初始高度
      */
     public int getCalendarViewOriginHeight() {
@@ -1660,6 +1727,7 @@ public class CalendarView extends FrameLayout {
      * CalendarViewDelegate.WEEK_START_WITH_SUN
      * CalendarViewDelegate.WEEK_START_WITH_MON
      * CalendarViewDelegate.WEEK_START_WITH_SAT
+     *
      * @param weekStart 周起始
      */
     public void setWeekStart(int weekStart) {
@@ -1679,6 +1747,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 是否是单选模式
+     *
      * @return isSingleSelectMode
      */
     public boolean isSingleSelectMode() {
@@ -1711,6 +1780,7 @@ public class CalendarView extends FrameLayout {
      * CalendarViewDelegate.MODE_ALL_MONTH
      * CalendarViewDelegate.MODE_ONLY_CURRENT_MONTH
      * CalendarViewDelegate.MODE_FIT_MONTH
+     *
      * @param mode 月视图显示模式
      */
     private void setShowMode(int mode) {
@@ -1764,6 +1834,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取当前周数据
+     *
      * @return 获取当前周数据
      */
     public List<CalendarDay> getCurrentWeekCalendars() {
@@ -1773,6 +1844,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取当前月份日期
+     *
      * @return return
      */
     public List<CalendarDay> getCurrentMonthCalendars() {
@@ -1781,6 +1853,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获取选择的日期
+     *
      * @return 获取选择的日期
      */
     public CalendarDay getSelectedCalendar() {
@@ -1789,6 +1862,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获得最小范围日期
+     *
      * @return 最小范围日期
      */
     public CalendarDay getMinRangeCalendar() {
@@ -1798,6 +1872,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获得最大范围日期
+     *
      * @return 最大范围日期
      */
     public CalendarDay getMaxRangeCalendar() {
@@ -1806,6 +1881,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * MonthViewPager
+     *
      * @return 获得月视图
      */
     public MonthViewPager getMonthViewPager() {
@@ -1814,6 +1890,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 获得周视图
+     *
      * @return 获得周视图
      */
     public WeekViewPager getWeekViewPager() {
@@ -1822,6 +1899,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 是否在日期范围内
+     *
      * @param calendar calendar
      * @return 是否在日期范围内
      */
@@ -1850,6 +1928,7 @@ public class CalendarView extends FrameLayout {
 
     /**
      * 月视图是否展开
+     *
      * @return true 月视图展开，false 月视图未展开
      */
     public boolean isMonthViewExpand() {
@@ -1885,15 +1964,17 @@ public class CalendarView extends FrameLayout {
     interface OnInnerDateSelectedListener {
         /**
          * 月视图点击
+         *
          * @param calendar calendar
-         * @param isClick 是否是点击
+         * @param isClick  是否是点击
          */
         void onMonthDateSelected(CalendarDay calendar, boolean isClick);
 
         /**
          * 周视图点击
+         *
          * @param calendar calendar
-         * @param isClick 是否是点击
+         * @param isClick  是否是点击
          */
         void onWeekDateSelected(CalendarDay calendar, boolean isClick);
     }
@@ -1906,21 +1987,24 @@ public class CalendarView extends FrameLayout {
 
         /**
          * 范围选择超出范围越界
+         *
          * @param calendar calendar
          */
         void onCalendarSelectOutOfRange(CalendarDay calendar);
 
         /**
          * 选择范围超出范围
-         * @param calendar calendar
+         *
+         * @param calendar        calendar
          * @param isOutOfMinRange 是否小于最小范围，否则为最大范围
          */
         void onSelectOutOfRange(CalendarDay calendar, boolean isOutOfMinRange);
 
         /**
          * 日期选择事件
+         *
          * @param calendar calendar
-         * @param isEnd 是否结束
+         * @param isEnd    是否结束
          */
         void onCalendarRangeSelect(CalendarDay calendar, boolean isEnd);
     }
@@ -1933,22 +2017,25 @@ public class CalendarView extends FrameLayout {
 
         /**
          * 多选超出范围越界
+         *
          * @param calendar calendar
          */
         void onCalendarMultiSelectOutOfRange(CalendarDay calendar);
 
         /**
          * 多选超出大小
-         * @param maxSize 最大大小
+         *
+         * @param maxSize  最大大小
          * @param calendar calendar
          */
         void onMultiSelectOutOfSize(CalendarDay calendar, int maxSize);
 
         /**
          * 多选事件
+         *
          * @param calendar calendar
-         * @param curSize curSize
-         * @param maxSize maxSize
+         * @param curSize  curSize
+         * @param maxSize  maxSize
          */
         void onCalendarMultiSelect(CalendarDay calendar, int curSize, int maxSize);
     }
@@ -1960,14 +2047,16 @@ public class CalendarView extends FrameLayout {
 
         /**
          * 超出范围越界
+         *
          * @param calendar calendar
          */
         void onCalendarOutOfRange(CalendarDay calendar);
 
         /**
          * 日期选择事件
+         *
          * @param calendar calendar
-         * @param isClick isClick
+         * @param isClick  isClick
          */
         void onCalendarSelect(CalendarDay calendar, boolean isClick);
     }
@@ -1976,12 +2065,14 @@ public class CalendarView extends FrameLayout {
 
         /**
          * 超出范围越界
+         *
          * @param calendar calendar
          */
         void onCalendarLongClickOutOfRange(CalendarDay calendar);
 
         /**
          * 日期长按事件
+         *
          * @param calendar calendar
          */
         void onCalendarLongClick(CalendarDay calendar);
@@ -1993,6 +2084,7 @@ public class CalendarView extends FrameLayout {
     public interface OnViewChangeListener {
         /**
          * 视图改变事件
+         *
          * @param isMonthView isMonthView是否是月视图
          */
         void onViewChange(boolean isMonthView);
@@ -2004,6 +2096,7 @@ public class CalendarView extends FrameLayout {
     public interface OnYearViewChangeListener {
         /**
          * 年视图变化
+         *
          * @param isClose 是否关闭
          */
         void onYearViewChange(boolean isClose);
@@ -2024,14 +2117,15 @@ public class CalendarView extends FrameLayout {
     public interface OnClickCalendarPaddingListener {
         /**
          * 点击Padding位置的事件
-         * @param x x坐标
-         * @param y y坐标
-         * @param isMonthView 是否是月视图，不是则为周视图
+         *
+         * @param x                x坐标
+         * @param y                y坐标
+         * @param isMonthView      是否是月视图，不是则为周视图
          * @param adjacentCalendar 相邻的日历日期
-         * @param obj 此处的对象，自行设置
+         * @param obj              此处的对象，自行设置
          */
         void onClickCalendarPadding(float x, float y, boolean isMonthView,
-                CalendarDay adjacentCalendar, Object obj);
+                                    CalendarDay adjacentCalendar, Object obj);
     }
 
     public interface OnYearViewSelectMonthListener {

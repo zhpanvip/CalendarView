@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -280,7 +281,7 @@ public final class CalendarViewDelegate {
      * 周视图类
      */
     private Class<?> mWeekViewClass;
-    private Class<?> mCalendarDrawer;
+    private BaseCalendarDrawer mCalendarDrawer;
 
     /**
      * 月视图当前展开百分比
@@ -305,8 +306,6 @@ public final class CalendarViewDelegate {
      * 自定义年视图路径
      */
     private final String mYearViewClassPath;
-
-    private final String mCalendarDrawerPath;
 
     /**
      * 周视图类
@@ -497,7 +496,7 @@ public final class CalendarViewDelegate {
         mSchemeLunarTextColor = array.getColor(R.styleable.CalendarView_scheme_lunar_text_color, 0xFFe1e1e1);
         mSchemeThemeColor = array.getColor(R.styleable.CalendarView_scheme_theme_color, 0x50CFCFCF);
         mMonthViewClassPath = array.getString(R.styleable.CalendarView_month_view);
-        mCalendarDrawerPath = array.getString(R.styleable.CalendarView_calendar_drawer);
+        String calendarDrawerPath = array.getString(R.styleable.CalendarView_calendar_drawer);
         mYearViewClassPath = array.getString(R.styleable.CalendarView_year_view);
         mWeekViewClassPath = array.getString(R.styleable.CalendarView_week_view);
         mWeekBarClassPath = array.getString(R.styleable.CalendarView_week_bar_view);
@@ -603,6 +602,21 @@ public final class CalendarViewDelegate {
         if (mMinYear <= MIN_YEAR) mMinYear = MIN_YEAR;
         if (mMaxYear >= MAX_YEAR) mMaxYear = MAX_YEAR;
         array.recycle();
+
+        try {
+            Class<?> calendarDrawerClass;
+            if (TextUtils.isEmpty(calendarDrawerPath)) {
+                calendarDrawerClass = CalendarDrawer.class;
+            } else {
+                calendarDrawerClass = Class.forName(calendarDrawerPath);
+            }
+
+            Constructor<?> constructor = calendarDrawerClass.getConstructor(Context.class, CalendarViewDelegate.class);
+            mCalendarDrawer = (BaseCalendarDrawer) constructor.newInstance(context,this);
+        } catch (Exception e) {
+            Log.e(TAG, "error:" + e.getMessage());
+            mCalendarDrawer = new CalendarDrawer(context,this);
+        }
         init();
     }
 
@@ -641,17 +655,11 @@ public final class CalendarViewDelegate {
         } catch (Exception e) {
             Log.e(TAG, "error:" + e.getMessage());
         }
-        try {
-            mCalendarDrawer = TextUtils.isEmpty(mCalendarDrawerPath) ?
-                    CalendarDrawer.class : Class.forName(mCalendarDrawerPath);
-        } catch (Exception e) {
-            Log.e(TAG, "error:" + e.getMessage());
-        }
     }
 
 
     private void setRange(int minYear, int minYearMonth,
-            int maxYear, int maxYearMonth) {
+                          int maxYear, int maxYearMonth) {
         this.mMinYear = minYear;
         this.mMinYearMonth = minYearMonth;
         this.mMaxYear = maxYear;
@@ -667,7 +675,7 @@ public final class CalendarViewDelegate {
     }
 
     void setRange(int minYear, int minYearMonth, int minYearDay,
-            int maxYear, int maxYearMonth, int maxYearDay) {
+                  int maxYear, int maxYearMonth, int maxYearDay) {
         this.mMinYear = minYear;
         this.mMinYearMonth = minYearMonth;
         this.mMinYearDay = minYearDay;
@@ -793,7 +801,7 @@ public final class CalendarViewDelegate {
         return mYearViewClass;
     }
 
-    Class<?> getCalendarDrawerClass() {
+    BaseCalendarDrawer getCalendarDrawer() {
         return mCalendarDrawer;
     }
 
@@ -827,6 +835,7 @@ public final class CalendarViewDelegate {
 
     /**
      * 获取月视图展开增加的高度
+     *
      * @param originMonthViewHeight 月视图未展开前初始高度
      * @return 月视图展开增加的高度
      */
@@ -1002,6 +1011,7 @@ public final class CalendarViewDelegate {
 
     /**
      * 选择模式
+     *
      * @return 选择模式
      */
     int getSelectMode() {
@@ -1010,6 +1020,7 @@ public final class CalendarViewDelegate {
 
     /**
      * 设置选择模式
+     *
      * @param mSelectMode mSelectMode
      */
     void setSelectMode(int mSelectMode) {
@@ -1120,7 +1131,7 @@ public final class CalendarViewDelegate {
         this.mWeekViewClass = weekViewClass;
     }
 
-    void setCalendarDrawerClass(Class<? extends BaseCalendarDrawer> calendarDrawerClass) {
+    void setCalendarDrawerClass(BaseCalendarDrawer calendarDrawerClass) {
         this.mCalendarDrawer = calendarDrawerClass;
     }
 
@@ -1230,6 +1241,7 @@ public final class CalendarViewDelegate {
 
     /**
      * 添加数据
+     *
      * @param mSchemeDates mSchemeDates
      */
     void addSchemes(Map<String, CalendarDay> mSchemeDates) {
@@ -1259,6 +1271,7 @@ public final class CalendarViewDelegate {
 
     /**
      * 获得选中范围
+     *
      * @return 选中范围
      */
     List<CalendarDay> getSelectCalendarRange() {
@@ -1306,7 +1319,7 @@ public final class CalendarViewDelegate {
         this.monthViewExpandHeight = monthViewExpandHeight;
     }
 
-   public int getMonthViewExpandHeight() {
+    public int getMonthViewExpandHeight() {
         return monthViewExpandHeight;
     }
 
@@ -1329,6 +1342,7 @@ public final class CalendarViewDelegate {
 
     /**
      * 切换文字画笔
+     *
      * @param paintType 画笔类型
      * @return 画笔类型对应的画笔
      */

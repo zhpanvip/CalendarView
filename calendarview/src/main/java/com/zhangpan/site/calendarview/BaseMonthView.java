@@ -52,7 +52,8 @@ public abstract class BaseMonthView extends BaseMontWeekView {
 
     /**
      * 初始化日期
-     * @param year year
+     *
+     * @param year  year
      * @param month month
      */
     final void initMonthWithDate(int year, int month) {
@@ -97,6 +98,7 @@ public abstract class BaseMonthView extends BaseMontWeekView {
 
     /**
      * 获取点击选中的日期
+     *
      * @return return
      */
     protected CalendarDay getIndex() {
@@ -142,8 +144,9 @@ public abstract class BaseMonthView extends BaseMontWeekView {
 
     /**
      * 获取点击事件处的对象
-     * @param x x
-     * @param y y
+     *
+     * @param x                x
+     * @param y                y
      * @param adjacentCalendar adjacent calendar
      * @return obj can as null
      */
@@ -154,6 +157,7 @@ public abstract class BaseMonthView extends BaseMontWeekView {
 
     /**
      * 记录已经选择的日期
+     *
      * @param calendar calendar
      */
     final void setSelectedCalendar(CalendarDay calendar) {
@@ -183,9 +187,7 @@ public abstract class BaseMonthView extends BaseMontWeekView {
     void updateItemHeight() {
         super.updateItemHeight();
         mHeight = CalendarUtil.getMonthViewHeight(mYear, mMonth, mDelegate);
-        if (calendarDrawer != null) {
-            calendarDrawer.updateItemHeight(getItemHeight());
-        }
+//        mDelegate.getCalendarDrawer().updateItemHeight(getItemHeight());
     }
 
     @Override
@@ -217,6 +219,7 @@ public abstract class BaseMonthView extends BaseMontWeekView {
 
     /**
      * 获取选中的下标
+     *
      * @param calendar calendar
      * @return 获取选中的下标
      */
@@ -247,6 +250,7 @@ public abstract class BaseMonthView extends BaseMontWeekView {
     /**
      * 循环绘制开始的回调，不需要可忽略
      * 绘制每个日历项的循环，用来计算baseLine、圆心坐标等都可以在这里实现
+     *
      * @param x 日历Card x起点坐标
      * @param y 日历Card y起点坐标
      */
