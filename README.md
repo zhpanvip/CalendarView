@@ -18,7 +18,7 @@
         implementation 'com.github.zhpanvip:CalendarView:Tag'
     }
 
-Tag: [![](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/d1ece49a74034bb38c74dac7ef0d424c~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6LWM5LiA5YyF6L6j5p2h:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjczNTI0MDY1OTM1OTQ0OCJ9\&rk3s=e9ecf3d6\&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018\&x-orig-expires=1750080584\&x-orig-sign=R6SqXr7YO5LHJN35HVFNeZOwPs0%3D)](https://jitpack.io/#zhpanvip/CalendarView)
+Tag: [![](https://jitpack.io/v/zhpanvip/CalendarView.svg)](https://jitpack.io/#zhpanvip/CalendarView)
 
 3.xml中添加以下代码：
 
@@ -79,7 +79,7 @@ app:layout_constraintTop_toTopOf="parent" >
 
 通过以上代码可以实现默认的日历视图效果，效果如下：
 
-![calendar](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/95c4825a0e9a4d988841abd6d6edaa03~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6LWM5LiA5YyF6L6j5p2h:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjczNTI0MDY1OTM1OTQ0OCJ9\&rk3s=e9ecf3d6\&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018\&x-orig-expires=1750080296\&x-orig-sign=uBP%2BazsWgkUOemTj5wYIamZsiSY%3D)
+![calendar](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/calendar/1.gif)
 
 ## 二、自定义样式
 
