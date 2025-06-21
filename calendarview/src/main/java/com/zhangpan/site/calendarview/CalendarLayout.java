@@ -605,9 +605,10 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 窗口大小发生变化，更新月视图展开的高度
-     * @param w Current width of this view.
-     * @param h Current height of this view.
-     * @param oldWidth Old width of this view.
+     *
+     * @param w         Current width of this view.
+     * @param h         Current height of this view.
+     * @param oldWidth  Old width of this view.
      * @param oldHeight Old height of this view.
      */
     @Override
@@ -652,6 +653,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 初始化
+     *
      * @param delegate delegate
      */
     final void setup(CalendarViewDelegate delegate) {
@@ -673,6 +675,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 周视图切换为非全屏月视图模式
+     *
      * @param duration 时长
      */
     public void changeToMonthViewStatus(int duration) {
@@ -730,6 +733,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 非全屏月视图切换为周视图模式
+     *
      * @param duration 时长
      */
     public void changeToWeekViewStatus(int duration) {
@@ -769,6 +773,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 非全屏月视图模式切换为全屏月视图模式
+     *
      * @param duration 展开月视图动画时间
      */
     public void expandMonthView(long duration) {
@@ -777,15 +782,30 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 全屏月视图模式切换为非全屏月视图
+     *
      * @param duration 月视图折叠动画时间
      */
     public void foldMontView(long duration) {
         mCalendarView.foldMonthView(duration);
     }
 
+
+    public void toggleYearView() {
+        if (mYearViewAnimating) {
+            return;
+        }
+        if (isYearViewShow()) {
+            hideYearView();
+        } else {
+            CalendarDay selectedCalendar = mCalendarView.getSelectedCalendar();
+            showYearView(selectedCalendar.getYear(), selectedCalendar.getMonth());
+        }
+    }
+
     /**
      * 显示年视图
-     * @param year 当前选中年份
+     *
+     * @param year  当前选中年份
      * @param month 当前选中月份
      */
     public void showYearView(int year, int month) {
@@ -964,6 +984,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 当前第几项被选中，更新平移量
+     *
      * @param selectPosition 月视图被点击的position
      */
     final void updateSelectPosition(int selectPosition) {
@@ -973,6 +994,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 设置选中的周，更新位置
+     *
      * @param week week
      */
     final void updateSelectWeek(int week) {
@@ -1337,6 +1359,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * ContentView是否滚动到顶部 如果完全不适合，就复写这个方法
+     *
      * @return 是否滚动到顶部
      */
     private boolean isScrollTop() {
@@ -1460,6 +1483,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 设置日历视图展开后的最大高度
+     *
      * @param calendarLayoutExpandHeight 日历视图展开后的最大高度
      */
     private void updateCalendarViewExpandHeight(int calendarLayoutExpandHeight) {
@@ -1469,6 +1493,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 初始化当前时间的位置
+     *
      * @param cur 当前日期时间
      */
     private void initCalendarPosition(CalendarDay cur) {
@@ -1479,6 +1504,7 @@ public class CalendarLayout extends LinearLayout {
 
     /**
      * 根据滑动速度计算月视图展开时间
+     *
      * @param velocity 手指滑动速度
      * @return 月视图展开时间
      */
@@ -1507,6 +1533,7 @@ public class CalendarLayout extends LinearLayout {
     public interface CalendarScrollView {
         /**
          * 是否滚动到顶部
+         *
          * @return 是否滚动到顶部
          */
         boolean isScrollToTop();

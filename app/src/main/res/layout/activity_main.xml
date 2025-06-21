@@ -7,15 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2025年6月" />
+
     <com.zhangpan.site.calendarview.CalendarLayout
+        android:id="@+id/calendar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:calendar_content_view_id="@id/scroll_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:calendar_content_view_id="@id/scroll_view"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toBottomOf="@id/tv_date">
 
         <com.zhangpan.site.calendarview.CalendarView
             android:id="@+id/calendar_view"
@@ -57,9 +69,9 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"
-            android:background="#4c4f76"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#4c4f76" />
 
     </com.zhangpan.site.calendarview.CalendarLayout>
 
